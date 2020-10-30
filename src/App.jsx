@@ -12,10 +12,10 @@ import reducer from './reducer';
 const runApp = () => {
   const store = configureStore({
     reducer,
-    devTools: true,
+    devTools: process.env.NODE_ENV === 'development',
     preloadedState: {
       username: '',
-      repos: [],
+      repos: { data: [], fetchingState: null, fetchingError: null },
     },
   });
 
