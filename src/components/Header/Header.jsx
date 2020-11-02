@@ -1,5 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 
-const Header = ({ children }) => <h1>{children}</h1>;
+import Title from './Title';
+
+const Header = ({ children }) => (
+  <header>
+    <Title>{children}</Title>
+  </header>
+);
 
 export default Header;

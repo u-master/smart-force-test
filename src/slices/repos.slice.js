@@ -18,10 +18,12 @@ const { reducer, actions } = createSlice({
   extraReducers: {
     [fetchRepos.fulfilled]: (state, { payload }) => {
       state.data = payload;
+      state.fetchingError = null;
       state.fetchingState = 'success';
       console.log(' >>> fetchRepos.fulfilled ', payload);
     },
     [fetchRepos.pending]: (state) => {
+      state.data = [];
       state.fetchingState = 'fetching';
       console.log(' >>> fetchRepos.pending ');
     },
