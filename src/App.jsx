@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 
-import RepoList from './components/RepoList/RepoList';
+import RepoList from './components/RepoList';
 import Header from './components/Header';
-import SearchForm from './components/SearchForm/SearchForm';
+import SearchForm from './components/SearchForm';
 
 import reducer from './reducer';
 
