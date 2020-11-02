@@ -13,6 +13,8 @@ const reposIsFetchEmptySelector = ({ repos: { fetchingState, data } }) =>
 
 const reposFetchingErrorSelector = ({ repos: { fetchingError } }) => fetchingError?.message;
 
+const reposCurrentPageSelector = ({ repos: })
+
 export {
   usernameSelector,
   allReposSelector,
@@ -20,4 +22,5 @@ export {
   reposIsFetchErrorSelector,
   reposIsFetchEmptySelector,
   reposFetchingErrorSelector,
+  reposCurrentPageSelector, 
 };

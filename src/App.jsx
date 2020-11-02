@@ -18,6 +18,7 @@ const runApp = () => {
     preloadedState: {
       username: '',
       repos: { data: [], fetchingState: null, fetchingError: null },
+      pagination: { currentPage: 1, lastPage: 1, itemsPerPage: Infinity },
     },
   });
 
