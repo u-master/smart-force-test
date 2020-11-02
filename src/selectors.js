@@ -8,6 +8,9 @@ const reposIsFetchingSelector = ({ repos: { fetchingState } }) => fetchingState 
 
 const reposIsFetchErrorSelector = ({ repos: { fetchingState } }) => fetchingState === 'failed';
 
+const reposIsFetchEmptySelector = ({ repos: { fetchingState, data } }) =>
+  fetchingState === 'success' && data.length === 0;
+
 const reposFetchingErrorSelector = ({ repos: { fetchingError } }) => fetchingError?.message;
 
 export {
@@ -15,5 +18,6 @@ export {
   allReposSelector,
   reposIsFetchingSelector,
   reposIsFetchErrorSelector,
+  reposIsFetchEmptySelector,
   reposFetchingErrorSelector,
 };

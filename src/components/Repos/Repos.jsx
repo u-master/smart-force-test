@@ -15,9 +15,7 @@ const Repos = () => {
     dispatch(fetchRepos({ username }));
   }, [username]);
 
-  return allRepos.length === 0 ? (
-    <p>Nothing!</p>
-  ) : (
+  return allRepos.length === 0 ? null : (
     <RepoList>
       {allRepos.map((item) => (
         <RepoItem key={item.id} item={item} />
