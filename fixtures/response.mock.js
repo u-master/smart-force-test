@@ -1,5 +1,5 @@
-export default (username) => ({
-  data: [
+export default (username) =>
+  JSON.stringify([
     {
       id: 242650836,
       node_id: 'MDEwOlJlcG9zaXRvcnkyNDI2NTA4MzY=',
@@ -570,32 +570,4 @@ export default (username) => ({
       watchers: 0,
       default_branch: 'master',
     },
-  ],
-  status: 200,
-  statusText: 'OK',
-  headers: {
-    'cache-control': 'public, max-age=60, s-maxage=60',
-    'content-type': 'application/json; charset=utf-8',
-    etag: 'W/"616faa3ba6e13e0323e754c504ecfeccacb8ec4769542b37fe5b73a9f18d36d7"',
-    'x-github-media-type': 'github.v3',
-    'x-ratelimit-limit': '60',
-    'x-ratelimit-remaining': '59',
-    'x-ratelimit-reset': '1603971012',
-    'x-ratelimit-used': '1',
-  },
-  config: {
-    url: `https://api.github.com/users/${username}/repos`,
-    method: 'get',
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-    },
-    transformRequest: [null],
-    transformResponse: [null],
-    timeout: 0,
-    xsrfCookieName: 'XSRF-TOKEN',
-    xsrfHeaderName: 'X-XSRF-TOKEN',
-    maxContentLength: -1,
-    maxBodyLength: -1,
-  },
-  request: {},
-});
+  ]);

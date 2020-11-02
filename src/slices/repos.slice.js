@@ -1,17 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-import {getReposPath} from '../routes';
-import { setUsername } from './username.slice';
+import { getReposPath } from '../routes';
 
-// const fetchRepos = () => (dispatch) => {
-  
-// };
-
-const fetchRepos  = createAsyncThunk(
-  'username/fetchRepos',
-  async (username) => await axios.get(getReposPath(username)));
-
-
+const fetchRepos = createAsyncThunk('username/fetchRepos', ({ username }) => {
+  if (username === '') return Promise.resolve([]);
+  return axios.get(getReposPath(username).href).then(({ data }) => data);
+});
 
 const { reducer, actions } = createSlice({
   name: 'repos',
@@ -20,35 +15,23 @@ const { reducer, actions } = createSlice({
     fetchingState: null,
     fetchingError: null,
   },
-  // reducers: {
-  //   reposFetching: ({ fetchingState }) => {
-  //     fetchingState = 'fetching';
-  //   },
-  //   reposFetched: ({ fetchingState, data }, { payload: { repos } }) => {
-  //     data = repos;
-  //     fetchingState = 'success';
-  //   },
-  //   reposFetchingError: ({ fetchingState }, { payload: { error } }) => {
-  //     fetchingState = 'failed';
-  //     fetchingError = error;
-  //   },
-  // },
-  extraRedusers: {
-    [fetchRepos.fulfilled]: ({fetchingState, data}, {payload }) => {
-      data = payload;
-      fetchingState = 'success';
-      console.log(payload);
+  extraReducers: {
+    [fetchRepos.fulfilled]: (state, { payload }) => {
+      state.data = payload;
+      state.fetchingState = 'success';
+      console.log(' >>> fetchRepos.fulfilled ', payload);
     },
-    [fetchRepos.pending]: ({fetchingState}) => {
-      fetchingState = 'fetching';
+    [fetchRepos.pending]: (state) => {
+      state.fetchingState = 'fetching';
+      console.log(' >>> fetchRepos.pending ');
     },
-    [fetchRepos.rejected]: ({fetchingState, fetchingError}, {payload}) => {
-      fetchingState = 'failed';
-      fetchingError = payload;
-      console.log(payload);
-    }
+    [fetchRepos.rejected]: (state, { error }) => {
+      state.fetchingState = 'failed';
+      state.fetchingError = error;
+      console.log(' >>> fetchRepos.rejected ', error);
+    },
   },
 });
 
-export {fetchRepos};
+export { fetchRepos };
 export default reducer;

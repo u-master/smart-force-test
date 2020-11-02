@@ -1,14 +1,24 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getReposPath } from '../../routes';
+import { usernameSelector, allReposSelector } from '../../selectors';
+import { fetchRepos } from '../../slices/repos.slice';
+
+import RepoItem from '../RepoItem';
 
 const RepoList = () => {
+  const username = useSelector(usernameSelector);
+  const allRepos = useSelector(allReposSelector);
+  const dispatch = useDispatch();
   useEffect(() => {
-    const repos = axios.get(getReposPath('anybody')).then((reposList) => console.log(reposList));
-  }, []);
+    dispatch(fetchRepos({ username }));
+  }, [username]);
 
-  return <p>List at console</p>;
+  return allRepos.length === 0 ? (
+    <p>Nothing!</p>
+  ) : (
+    allRepos.map((item) => <RepoItem key={item.id} item={item} />)
+  );
 };
 
 export default RepoList;
