@@ -13,14 +13,33 @@ const reposIsFetchEmptySelector = ({ repos: { fetchingState, data } }) =>
 
 const reposFetchingErrorSelector = ({ repos: { fetchingError } }) => fetchingError?.message;
 
-const reposCurrentPageSelector = ({ repos: })
+const paginationCurrentPageSelector = ({ pagination: { currentPage } }) => currentPage;
+
+const paginationLastPageSelector = ({ pagination: { lastPage } }) => lastPage;
+
+const paginationItemsPerPageSelector = ({ pagination: { itemsPerPage } }) => itemsPerPage;
+
+const paginationIsShowAllSelector = ({ pagination: { isShowAll } }) => isShowAll;
+
+const pageReposSelector = createSelector(
+  allReposSelector,
+  paginationCurrentPageSelector,
+  paginationItemsPerPageSelector,
+  paginationIsShowAllSelector,
+  (repos, curPage, perPage, isShowAll) =>
+    isShowAll ? repos : repos.slice((curPage - 1) * perPage, perPage),
+);
 
 export {
   usernameSelector,
   allReposSelector,
+  pageReposSelector,
   reposIsFetchingSelector,
   reposIsFetchErrorSelector,
   reposIsFetchEmptySelector,
   reposFetchingErrorSelector,
-  reposCurrentPageSelector, 
+  paginationCurrentPageSelector,
+  paginationLastPageSelector,
+  paginationItemsPerPageSelector,
+  paginationIsShowAllSelector,
 };
