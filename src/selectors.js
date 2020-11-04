@@ -15,9 +15,13 @@ const reposFetchingErrorSelector = ({ repos: { fetchingError } }) => fetchingErr
 
 const paginationCurrentPageSelector = ({ pagination: { currentPage } }) => currentPage;
 
-const paginationLastPageSelector = ({ pagination: { lastPage } }) => lastPage;
-
 const paginationItemsPerPageSelector = ({ pagination: { itemsPerPage } }) => itemsPerPage;
+
+const paginationLastPageSelector = createSelector(
+  allReposSelector,
+  paginationItemsPerPageSelector,
+  (repos, perPage) => Math.max(1, Math.ceil(repos.length / perPage)),
+);
 
 const paginationIsShowAllSelector = ({ pagination: { isShowAll } }) => isShowAll;
 
@@ -27,7 +31,7 @@ const pageReposSelector = createSelector(
   paginationItemsPerPageSelector,
   paginationIsShowAllSelector,
   (repos, curPage, perPage, isShowAll) =>
-    isShowAll ? repos : repos.slice((curPage - 1) * perPage, perPage),
+    isShowAll ? repos : repos.slice((curPage - 1) * perPage, curPage * perPage),
 );
 
 export {

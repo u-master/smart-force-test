@@ -8,7 +8,7 @@ import {
   paginationIsShowAllSelector,
 } from '../../selectors';
 
-import { setItemsPerPage, setShowAll } from '../../slices/pagination.slice';
+import { setCurrentPage, setItemsPerPage, setShowAll } from '../../slices/pagination.slice';
 
 import PaginatorContainer from './PaginatorContainer';
 
@@ -17,9 +17,11 @@ const PageMore = () => (
     <span>...</span>
   </li>
 );
-const PageHref = ({ num }) => (
+const PageHref = ({ num, onClick }) => (
   <li key={`page${num}`}>
-    <a href="#">{num}</a>
+    <a href="#" onClick={onClick}>
+      {num}
+    </a>
   </li>
 );
 const PageSpan = ({ num }) => (
@@ -28,40 +30,40 @@ const PageSpan = ({ num }) => (
   </li>
 );
 
-const PagesSimple = ({ min, cur, max }) =>
+const PagesSimple = ({ min, cur, max, handlerClicks }) =>
   [...Array(max - min + 1)].map((_e, i) =>
     cur === i + min ? (
       <PageSpan key={`page${i + min}`} num={i + min} />
     ) : (
-      <PageHref key={`page${i + min}`} num={i + min} />
+      <PageHref key={`page${i + min}`} num={i + min} onClick={handlerClicks(i + min)} />
     ),
   );
 
-const PagesAtStart = ({ cur, max }) => (
+const PagesAtStart = ({ cur, max, handlerClicks }) => (
   <>
-    <PagesSimple min={1} cur={cur} max={5} />
+    <PagesSimple min={1} cur={cur} max={5} handlerClicks={handlerClicks} />
     <PageMore key="pagermore" />
-    <PageHref key={`page${max}`} num={max} />
+    <PageHref key={`page${max}`} num={max} onClick={handlerClicks(max)} />
   </>
 );
 
-const PagesAtEnd = ({ cur, max }) => (
+const PagesAtEnd = ({ cur, max, handlerClicks }) => (
   <>
-    <PageHref key="page1" num={1} />
+    <PageHref key="page1" num={1} onClick={handlerClicks(1)} />
     <PageMore key="pagelmore" />
-    <PagesSimple min={max - 4} cur={cur} max={max} />
+    <PagesSimple min={max - 4} cur={cur} max={max} handlerClicks={handlerClicks} />
   </>
 );
 
-const PagesAtMiddle = ({ cur, max }) => (
+const PagesAtMiddle = ({ cur, max, handlerClicks }) => (
   <>
-    <PageHref key="page1" num={1} />
+    <PageHref key="page1" num={1} onClick={handlerClicks(1)} />
     <PageMore key="pagelmore" />
-    <PageHref key={`page${cur - 1}`} num={cur - 1} />
-    <PageHref key={`page${cur}`} num={cur} />
-    <PageHref key={`page${cur + 1}`} num={cur + 1} />
+    <PageHref key={`page${cur - 1}`} num={cur - 1} onClick={handlerClicks(cur - 1)} />
+    <PageHref key={`page${cur}`} num={cur} onClick={handlerClicks(cur)} />
+    <PageHref key={`page${cur + 1}`} num={cur + 1} onClick={handlerClicks(cur + 1)} />
     <PageMore key="pagermore" />
-    <PageHref key={`page${max}`} num={max} />
+    <PageHref key={`page${max}`} num={max} onClick={handlerClicks(max)} />
   </>
 );
 
@@ -72,6 +74,9 @@ const Paginator = () => {
   const isShowAll = useSelector(paginationIsShowAllSelector);
 
   const [formItemsPerPage, setFormItemsPerPage] = useState(itemsPerPage);
+  useEffect(() => {
+    setFormItemsPerPage(itemsPerPage);
+  }, [itemsPerPage]);
   const dispatch = useDispatch();
 
   const handleShowAll = (e) => {
@@ -88,6 +93,11 @@ const Paginator = () => {
     dispatch(setItemsPerPage({ itemsPerPage: formItemsPerPage }));
   };
 
+  const handlerClicks = (i) => (e) => {
+    e.preventDefault();
+    dispatch(setCurrentPage({ currentPage: i }));
+  };
+
   return (
     <PaginatorContainer>
       {isShowAll ? (
@@ -95,13 +105,13 @@ const Paginator = () => {
       ) : (
         <ul>
           {lastPage < 8 ? (
-            <PagesSimple min={1} cur={currentPage} max={lastPage} />
+            <PagesSimple min={1} cur={currentPage} max={lastPage} handlerClicks={handlerClicks} />
           ) : currentPage <= 4 ? (
-            <PagesAtStart cur={currentPage} max={lastPage} />
+            <PagesAtStart cur={currentPage} max={lastPage} handlerClicks={handlerClicks} />
           ) : currentPage >= lastPage - 3 ? (
-            <PagesAtEnd cur={currentPage} max={lastPage} />
+            <PagesAtEnd cur={currentPage} max={lastPage} handlerClicks={handlerClicks} />
           ) : (
-            <PagesAtMiddle cur={currentPage} max={lastPage} />
+            <PagesAtMiddle cur={currentPage} max={lastPage} handlerClicks={handlerClicks} />
           )}
         </ul>
       )}

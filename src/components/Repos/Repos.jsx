@@ -24,6 +24,7 @@ const Repos = () => {
           <RepoItem key={item.id} item={item} />
         ))}
       </RepoList>
+      <Paginator />
     </>
   );
 };

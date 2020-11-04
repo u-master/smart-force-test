@@ -18,7 +18,7 @@ const runApp = () => {
     preloadedState: {
       username: '',
       repos: { data: [], fetchingState: null, fetchingError: null },
-      pagination: { currentPage: 1, lastPage: 1, itemsPerPage: 6, isShowAll: true },
+      pagination: { currentPage: 1, itemsPerPage: 6, isShowAll: true },
     },
   });
 
