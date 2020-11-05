@@ -1,9 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const PaginatorContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 270px;
+  grid-template-columns: 1fr 250px;
   width: 100%;
   margin: 25px 0;
 

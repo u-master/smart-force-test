@@ -17,8 +17,8 @@ const runApp = () => {
     devTools: process.env.NODE_ENV === 'development',
     preloadedState: {
       username: '',
-      repos: { data: [], fetchingState: null, fetchingError: null },
-      pagination: { currentPage: 1, itemsPerPage: 6, isShowAll: true },
+      repos: { data: [], fetchingState: null, fetchingError: null, filter: '' },
+      pagination: { currentPage: 1, itemsPerPage: 6, isShowAll: false },
     },
   });
 

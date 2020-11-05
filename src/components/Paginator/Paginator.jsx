@@ -10,6 +10,8 @@ import {
 
 import { setCurrentPage, setItemsPerPage, setShowAll } from '../../slices/pagination.slice';
 
+import InputPerPage from './InputPerPage';
+
 import PaginatorContainer from './PaginatorContainer';
 
 const PageMore = () => (
@@ -116,12 +118,15 @@ const Paginator = () => {
         </ul>
       )}
       <form onSubmit={handleSubmit}>
-        <input
+        <label htmlFor="perPage">Per page: </label>
+        <InputPerPage
           type="text"
+          id="perPage"
+          name="perPage"
           disabled={isShowAll}
           value={formItemsPerPage}
           onChange={handleOnChange}
-        ></input>
+        />
         <input type="checkbox" checked={isShowAll} id="isAll" onChange={handleShowAll} />
         <label htmlFor="isAll">All</label>
       </form>

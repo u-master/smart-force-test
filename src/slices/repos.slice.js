@@ -8,12 +8,21 @@ const fetchRepos = createAsyncThunk('username/fetchRepos', ({ username }) => {
   return axios.get(getReposPath(username).href).then(({ data }) => data);
 });
 
-const { reducer, actions } = createSlice({
+const {
+  reducer,
+  actions: { setFilter },
+} = createSlice({
   name: 'repos',
   initialState: {
     data: [],
+    filter: '',
     fetchingState: null,
     fetchingError: null,
+  },
+  reducers: {
+    setFilter: (state, { payload: { filter } }) => {
+      state.filter = filter.trim();
+    },
   },
   extraReducers: {
     [fetchRepos.fulfilled]: (state, { payload }) => {
@@ -35,5 +44,5 @@ const { reducer, actions } = createSlice({
   },
 });
 
-export { fetchRepos };
+export { fetchRepos, setFilter };
 export default reducer;

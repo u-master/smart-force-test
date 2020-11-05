@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchRepos } from './repos.slice';
+import { fetchRepos, setFilter } from './repos.slice';
 
 const { reducer, actions } = createSlice({
   name: 'pagination',
@@ -24,6 +24,9 @@ const { reducer, actions } = createSlice({
   },
   extraReducers: {
     [fetchRepos.fulfilled]: (state) => {
+      state.currentPage = 1;
+    },
+    [setFilter]: (state) => {
       state.currentPage = 1;
     },
   },

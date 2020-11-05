@@ -13,12 +13,23 @@ const reposIsFetchEmptySelector = ({ repos: { fetchingState, data } }) =>
 
 const reposFetchingErrorSelector = ({ repos: { fetchingError } }) => fetchingError?.message;
 
+const reposFilterSelector = ({ repos: { filter } }) => filter;
+
+const filteredReposSelector = createSelector(
+  allReposSelector,
+  reposFilterSelector,
+  (repos, filter) =>
+    filter === ''
+      ? repos
+      : repos.filter((repo) => repo.name.includes(filter) || repo.description.includes(filter)),
+);
+
 const paginationCurrentPageSelector = ({ pagination: { currentPage } }) => currentPage;
 
 const paginationItemsPerPageSelector = ({ pagination: { itemsPerPage } }) => itemsPerPage;
 
 const paginationLastPageSelector = createSelector(
-  allReposSelector,
+  filteredReposSelector,
   paginationItemsPerPageSelector,
   (repos, perPage) => Math.max(1, Math.ceil(repos.length / perPage)),
 );
@@ -26,7 +37,7 @@ const paginationLastPageSelector = createSelector(
 const paginationIsShowAllSelector = ({ pagination: { isShowAll } }) => isShowAll;
 
 const pageReposSelector = createSelector(
-  allReposSelector,
+  filteredReposSelector,
   paginationCurrentPageSelector,
   paginationItemsPerPageSelector,
   paginationIsShowAllSelector,
@@ -37,11 +48,13 @@ const pageReposSelector = createSelector(
 export {
   usernameSelector,
   allReposSelector,
+  filteredReposSelector,
   pageReposSelector,
   reposIsFetchingSelector,
   reposIsFetchErrorSelector,
   reposIsFetchEmptySelector,
   reposFetchingErrorSelector,
+  reposFilterSelector,
   paginationCurrentPageSelector,
   paginationLastPageSelector,
   paginationItemsPerPageSelector,

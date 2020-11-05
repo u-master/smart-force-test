@@ -1,30 +1,36 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { usernameSelector, pageReposSelector } from '../../selectors';
+import { usernameSelector, pageReposSelector, reposIsFetchEmptySelector } from '../../selectors';
 import { fetchRepos } from '../../slices/repos.slice';
 
 import RepoItem from './RepoItem';
 import RepoList from './RepoList';
+import RepoFilter from './RepoFilter';
 import Paginator from '../Paginator';
 
 const Repos = () => {
   const username = useSelector(usernameSelector);
-  const allRepos = useSelector(pageReposSelector);
+  const pageRepos = useSelector(pageReposSelector);
+  const isEmpty = useSelector(reposIsFetchEmptySelector);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchRepos({ username }));
   }, [username]);
 
-  return allRepos.length === 0 ? null : (
+  return (
     <>
-      <Paginator />
-      <RepoList>
-        {allRepos.map((item) => (
-          <RepoItem key={item.id} item={item} />
-        ))}
-      </RepoList>
-      <Paginator />
+      {isEmpty ? null : <RepoFilter />}
+      {pageRepos.length === 0 ? null : (
+        <>
+          <RepoList>
+            {pageRepos.map((item) => (
+              <RepoItem key={item.id} item={item} />
+            ))}
+          </RepoList>
+          <Paginator />
+        </>
+      )}
     </>
   );
 };

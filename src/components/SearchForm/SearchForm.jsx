@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUsername } from '../../slices/username.slice';
 import { reposIsFetchingSelector } from '../../selectors';
 
-import Input from '../Input';
+import InputUserName from './InputUserName';
 
 const SearchForm = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const SearchForm = () => {
 
   return (
     <form method="post" onSubmit={onSubmit}>
-      <Input
+      <InputUserName
         type="text"
         name="username"
         id="username"
