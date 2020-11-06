@@ -92,6 +92,10 @@ const Paginator = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formItemsPerPage <= 0) {
+      setFormItemsPerPage(itemsPerPage);
+      return;
+    }
     dispatch(setItemsPerPage({ itemsPerPage: formItemsPerPage }));
   };
 

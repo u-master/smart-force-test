@@ -15,6 +15,7 @@ const { reducer, actions } = createSlice({
       state.currentPage = currentPage;
     },
     setItemsPerPage: (state, { payload: { itemsPerPage } }) => {
+      if (itemsPerPage <= 0) return state;
       state.currentPage = 1;
       state.itemsPerPage = itemsPerPage;
     },
