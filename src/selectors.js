@@ -21,7 +21,7 @@ const filteredReposSelector = createSelector(
   (repos, filter) =>
     filter === ''
       ? repos
-      : repos.filter((repo) => repo.name.includes(filter) || repo.description.includes(filter)),
+      : repos.filter((repo) => repo.name.includes(filter) || repo?.description?.includes(filter)),
 );
 
 const paginationCurrentPageSelector = ({ pagination: { currentPage } }) => currentPage;
