@@ -20,9 +20,8 @@ if (process.env.NODE_ENV === 'development') {
   // });
 }
 
-console.log(window.location);
-
 const curloc = new URL(window.location.href);
-console.log(curloc);
+const access_token = curloc.searchParams.get('access_token');
+console.log(access_token);
 
-runApp();
+runApp({ access_token });
