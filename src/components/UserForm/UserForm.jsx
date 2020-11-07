@@ -27,14 +27,10 @@ const SearchForm = () => {
   };
 
   const handlerLogin = (e) => {
-    // e.preventDefault();
-    // console.log('Auchhh!!!!');
-    // axios
-    //   .post(
-    //     'https://github.com/login/oauth/access_token?client_id=bd4f45a8fde0385a77a4&client_secret=ba281f346934dd2cf79916ac6275e147aee940d9',
-    //   )
-    //   .then((response) => console.log(response));
-    window.location.href = getAuthorizePath();
+    // FIXIT
+    const client_id =
+      process.env.NODE_ENV === 'development' ? 'bd4f45a8fde0385a77a4' : '4421486ad44ad061fbed';
+    window.location.href = getAuthorizePath(client_id);
   };
 
   return (
