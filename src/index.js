@@ -20,4 +20,9 @@ if (process.env.NODE_ENV === 'development') {
   // });
 }
 
+console.log(window.location);
+
+const curloc = new URL(window.location.href);
+console.log(curloc);
+
 runApp();
