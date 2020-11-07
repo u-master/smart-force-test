@@ -16,8 +16,8 @@ app.get('/auth', (req, res) => {
     .post(
       `https://github.com/login/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}&code=${code}`,
     )
-    .then((response) => res.send(response))
-    .catch((error) => res.send(error));
+    .then((response) => res.send(`Response: ${response}`))
+    .catch((error) => res.send(`Error: ${error}`));
 });
 
 export default app;
