@@ -8,16 +8,16 @@ import './index.scss';
 
 if (process.env.NODE_ENV === 'development') {
   // mocking requests while develop
-  createServer({
-    routes() {
-      this.urlPrefix = 'https://api.github.com';
-      this.get('/users/:username/repos', (_s, request) => {
-        if (request.params.username === 'unknown')
-          throw new Error('Request failed with status code 404');
-        return response(request.params.username);
-      });
-    },
-  });
+  // createServer({
+  //   routes() {
+  //     this.urlPrefix = 'https://api.github.com';
+  //     this.get('/users/:username/repos', (_s, request) => {
+  //       if (request.params.username === 'unknown')
+  //         throw new Error('Request failed with status code 404');
+  //       return response(request.params.username);
+  //     });
+  //   },
+  // });
 }
 
 runApp();

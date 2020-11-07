@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import Repos from './components/Repos';
 import Header from './components/Header';
-import SearchForm from './components/SearchForm';
+import UserForm from './components/UserForm';
 import Feedback from './components/Feedback';
 
 import reducer from './reducer';
@@ -16,7 +16,7 @@ const runApp = () => {
     reducer,
     devTools: process.env.NODE_ENV === 'development',
     preloadedState: {
-      username: '',
+      user: { name: '' },
       repos: { data: [], fetchingState: null, fetchingError: null, filter: '' },
       pagination: { currentPage: 1, itemsPerPage: 6, isShowAll: false },
     },
@@ -34,7 +34,7 @@ const runApp = () => {
     <Provider store={store}>
       <Wrapper>
         <Header>Github Repos Reader</Header>
-        <SearchForm />
+        <UserForm />
         <Feedback />
         <Repos />
       </Wrapper>

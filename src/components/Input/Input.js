@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Input = styled.input`
+  font-family: 'Montserrat', sans-serif;
   display: block;
   height: 1.5rem;
   line-height: 1.5rem;

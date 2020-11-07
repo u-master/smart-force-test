@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { getReposPath } from '../routes';
 
-const fetchRepos = createAsyncThunk('username/fetchRepos', ({ username }) => {
+const fetchRepos = createAsyncThunk('user/fetchRepos', ({ username }) => {
   if (username === '') return Promise.resolve([]);
   return axios.get(getReposPath(username).href).then(({ data }) => data);
 });

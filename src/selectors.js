@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const usernameSelector = ({ username }) => username;
+const usernameSelector = ({ user: { name } }) => name;
 
 const allReposSelector = ({ repos: { data } }) => data;
 
