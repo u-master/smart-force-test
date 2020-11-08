@@ -11,12 +11,12 @@ import Feedback from './components/Feedback';
 
 import reducer from './reducer';
 
-const runApp = () => {
+const runApp = ({ accessToken }) => {
   const store = configureStore({
     reducer,
     devTools: process.env.NODE_ENV === 'development',
     preloadedState: {
-      user: { name: '' },
+      user: { name: '', accessToken },
       repos: { data: [], fetchingState: null, fetchingError: null, filter: '' },
       pagination: { currentPage: 1, itemsPerPage: 6, isShowAll: false },
     },

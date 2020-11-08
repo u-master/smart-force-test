@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { usernameSelector, pageReposSelector, reposIsFetchEmptySelector } from '../../selectors';
+import {
+  usernameSelector,
+  userAccessTokenSelector,
+  pageReposSelector,
+  reposIsFetchEmptySelector,
+} from '../../selectors';
 import { fetchRepos } from '../../slices/repos.slice';
 
 import RepoItem from './RepoItem';
@@ -11,11 +16,12 @@ import Paginator from '../Paginator';
 
 const Repos = () => {
   const username = useSelector(usernameSelector);
+  const accessToken = useSelector(userAccessTokenSelector);
   const pageRepos = useSelector(pageReposSelector);
   const isEmpty = useSelector(reposIsFetchEmptySelector);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchRepos({ username }));
+    dispatch(fetchRepos({ username, accessToken }));
   }, [username]);
 
   return (

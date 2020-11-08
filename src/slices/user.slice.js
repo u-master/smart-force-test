@@ -4,6 +4,7 @@ const { reducer, actions } = createSlice({
   name: 'user',
   initialState: {
     name: '',
+    access_token: null,
   },
   reducers: {
     setUsername(state, { payload: { username } }) {

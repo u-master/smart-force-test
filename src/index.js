@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const curloc = new URL(window.location.href);
-const access_token = curloc.searchParams.get('access_token');
-console.log(access_token);
+const accessToken = curloc.searchParams.get('access_token');
+console.log(accessToken);
 
-runApp({ access_token });
+runApp({ accessToken });

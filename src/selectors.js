@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 
 const usernameSelector = ({ user: { name } }) => name;
 
+const userAccessTokenSelector = ({ user: { accessToken } }) => accessToken;
+
 const allReposSelector = ({ repos: { data } }) => data;
 
 const reposIsFetchingSelector = ({ repos: { fetchingState } }) => fetchingState === 'fetching';
@@ -47,6 +49,7 @@ const pageReposSelector = createSelector(
 
 export {
   usernameSelector,
+  userAccessTokenSelector,
   allReposSelector,
   filteredReposSelector,
   pageReposSelector,
