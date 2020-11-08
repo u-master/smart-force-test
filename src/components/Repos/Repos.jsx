@@ -22,9 +22,7 @@ const Repos = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (accessToken) dispatch(fetchRepos({ accessToken }));
-  }, []);
-  useEffect(() => {
-    dispatch(fetchRepos({ username }));
+    else dispatch(fetchRepos({ username }));
   }, [username]);
 
   return (
