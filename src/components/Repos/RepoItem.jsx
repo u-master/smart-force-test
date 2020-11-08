@@ -23,7 +23,7 @@ const RepoItem = ({ item }) => {
             <dd key="lang_desc">{item.language}</dd>,
           ]}
           <dt key="vis_term">Visibility:</dt>
-          <dd key="vis_desc">{item.privale ? 'private' : 'public'}</dd>
+          <dd key="vis_desc">{item.private ? 'private' : 'public'}</dd>
         </RepoItemDescList>
       </RepoItemListItem>
     )
