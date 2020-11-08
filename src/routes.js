@@ -1,6 +1,6 @@
 const gitHost = 'https://api.github.com';
 
-const getReposPath = (username) => new URL(`/users/${username}/repos`, gitHost);
+const getReposPath = (username) => new URL(`/user/repos?visibility=all`, gitHost);
 
 // `/users/${username}/repos${access_token ? `&access_token=${access_token}` : ''}`,
 
