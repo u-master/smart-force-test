@@ -16,7 +16,7 @@ const runApp = ({ accessToken }) => {
     reducer,
     devTools: process.env.NODE_ENV === 'development',
     preloadedState: {
-      user: { name: '', accessToken },
+      user: { name: '', accessToken, fetchingState: null, fetchingError: null },
       repos: { data: [], fetchingState: null, fetchingError: null, filter: '' },
       pagination: { currentPage: 1, itemsPerPage: 6, isShowAll: false },
     },
