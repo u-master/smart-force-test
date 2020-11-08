@@ -6,7 +6,7 @@ import { getReposPath } from '../routes';
 const fetchRepos = createAsyncThunk('user/fetchRepos', ({ username, accessToken }) => {
   if (username === '') return Promise.resolve([]);
   return axios
-    .get(getReposPath(username).href, { headers: { Authorization: `${accessToken} OAUTH-TOKEN` } })
+    .get(getReposPath(username).href, { headers: { Authorization: `token ${accessToken}` } })
     .then(({ data }) => data);
 });
 
