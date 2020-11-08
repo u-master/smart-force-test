@@ -9,7 +9,10 @@ const fetchUsername = createAsyncThunk('user/fetchUsername', ({ accessToken }) =
       .get(getUserAuthorizedUserPath().href, {
         headers: { Authorization: `token ${accessToken}` },
       })
-      .then(({ data: { name } }) => ({ name }));
+      .then(({ data }) => {
+        console.log(data);
+        return { name: data.name };
+      });
   return Promise.resolve([]);
 });
 
