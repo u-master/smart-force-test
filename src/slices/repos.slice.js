@@ -1,13 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { getReposPath } from '../routes';
+import { getReposPath, getReposAuthorizedUserPath } from '../routes';
 
 const fetchRepos = createAsyncThunk('user/fetchRepos', ({ username, accessToken }) => {
+  if (accessToken)
+    return axios
+      .get(getReposAuthorizedUserPath().href, {
+        headers: { Authorization: `token ${accessToken}` },
+      })
+      .then(({ data }) => data);
   if (username === '') return Promise.resolve([]);
-  return axios
-    .get(getReposPath(username).href, { headers: { Authorization: `token ${accessToken}` } })
-    .then(({ data }) => data);
+  return axios.get(getReposPath(username).href).then(({ data }) => data);
 });
 
 const {

@@ -21,7 +21,10 @@ const Repos = () => {
   const isEmpty = useSelector(reposIsFetchEmptySelector);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchRepos({ username, accessToken }));
+    if (accessToken) dispatch(fetchRepos({ accessToken }));
+  }, []);
+  useEffect(() => {
+    dispatch(fetchRepos({ username }));
   }, [username]);
 
   return (
