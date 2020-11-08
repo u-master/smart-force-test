@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 
-import { getAuthorizePath, getUserAuthorizedUserPath } from '../../routes';
+import { getAuthorizePath } from '../../routes';
 
 import { setUsername, fetchUsername } from '../../slices/user.slice';
-import { reposIsFetchingSelector, userAccessTokenSelector } from '../../selectors';
+import {
+  reposIsFetchingSelector,
+  userAccessTokenSelector,
+  usernameSelector,
+} from '../../selectors';
 
 import ContainerUserName from './ContainerUserName';
 import FormUserName from './FormUserName';
@@ -17,12 +20,17 @@ const SearchForm = () => {
   const [formUsername, setFormUsername] = useState('');
   const isFetching = useSelector(reposIsFetchingSelector);
   const accessToken = useSelector(userAccessTokenSelector);
+  const username = useSelector(usernameSelector);
 
   useEffect(() => {
     if (accessToken) {
       dispatch(fetchUsername({ accessToken }));
     }
   }, []);
+
+  useEffect(() => {
+    setFormUsername(username);
+  }, [username]);
 
   const handlerChange = (e) => {
     setFormUsername(e.target.value);
