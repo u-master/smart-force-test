@@ -8,22 +8,24 @@ import {
   reposIsFetchingSelector,
   userAccessTokenSelector,
   usernameSelector,
+  userIsLoggedInSelector,
 } from '../../selectors';
 
 import ContainerUserName from './ContainerUserName';
 import FormUserName from './FormUserName';
 import InputUserName from './InputUserName';
-import ButtonUserLogin from './ButtonUserLogin';
+import Button, { success, danger } from '../Button';
 
 const SearchForm = () => {
   const dispatch = useDispatch();
   const [formUsername, setFormUsername] = useState('');
   const isFetching = useSelector(reposIsFetchingSelector);
   const accessToken = useSelector(userAccessTokenSelector);
+  const isLoggedIn = useSelector(userIsLoggedInSelector);
   const username = useSelector(usernameSelector);
 
   useEffect(() => {
-    if (accessToken) {
+    if (isLoggedIn) {
       dispatch(fetchUsername({ accessToken }));
     }
   }, []);
@@ -39,6 +41,11 @@ const SearchForm = () => {
   const handlerSubmit = (e) => {
     e.preventDefault();
     dispatch(setUsername({ username: formUsername }));
+  };
+
+  const handlerLogout = (e) => {
+    e.preventDefault();
+    window.location.href = window.location.origin;
   };
 
   const handlerLogin = (e) => {
@@ -58,11 +65,19 @@ const SearchForm = () => {
           placeholder="User name"
           onChange={handlerChange}
           value={formUsername}
-          disabled={isFetching}
+          disabled={isFetching || isLoggedIn}
         />
       </FormUserName>
       <p> or </p>
-      <ButtonUserLogin onClick={handlerLogin}>Login with GitHub</ButtonUserLogin>
+      {isLoggedIn ? (
+        <Button theme={danger} onClick={handlerLogout}>
+          Logout
+        </Button>
+      ) : (
+        <Button theme={success} onClick={handlerLogin}>
+          Login with GitHub
+        </Button>
+      )}
     </ContainerUserName>
   );
 };

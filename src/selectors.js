@@ -4,6 +4,8 @@ const usernameSelector = ({ user: { name } }) => name;
 
 const userAccessTokenSelector = ({ user: { accessToken } }) => accessToken;
 
+const userIsLoggedInSelector = ({ user: { accessToken } }) => Boolean(accessToken);
+
 const allReposSelector = ({ repos: { data } }) => data;
 
 const reposIsFetchingSelector = ({ repos: { fetchingState } }) => fetchingState === 'fetching';
@@ -50,6 +52,7 @@ const pageReposSelector = createSelector(
 export {
   usernameSelector,
   userAccessTokenSelector,
+  userIsLoggedInSelector,
   allReposSelector,
   filteredReposSelector,
   pageReposSelector,
